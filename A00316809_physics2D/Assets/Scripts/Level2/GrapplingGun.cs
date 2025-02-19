@@ -129,24 +129,69 @@ public class GrapplingGun : MonoBehaviour
     //    }
     //}
 
+    //void SetGrapplePoint()
+    //{
+    //    Vector2 distanceVector = m_camera.ScreenToWorldPoint(Input.mousePosition) - gunPivot.position;
+    //    // Offset the raycast start point slightly to avoid hitting the outer trigger collider
+    //    Vector2 startPoint = (Vector2)firePoint.position + distanceVector.normalized * 2.1f; 
+
+    //    RaycastHit2D _hit = Physics2D.Raycast(startPoint, distanceVector.normalized);
+    //    if (_hit.collider != null)
+    //    {
+    //        if (_hit.transform.gameObject.layer == grappableLayerNumber || grappleToAll)
+    //        {
+    //            if (Vector2.Distance(_hit.point, firePoint.position) <= maxDistnace || !hasMaxDistance)
+    //            {
+    //                grapplePoint = _hit.point;
+    //                grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
+    //                grappleRope.enabled = true;
+    //            }
+    //        }
+    //    }
+    //}
+
     void SetGrapplePoint()
     {
-        Vector2 distanceVector = m_camera.ScreenToWorldPoint(Input.mousePosition) - gunPivot.position;
-        // Offset the raycast start point slightly to avoid hitting the outer trigger collider
-        Vector2 startPoint = (Vector2)firePoint.position + distanceVector.normalized * 2.1f; 
+        Vector2 mousePosition = m_camera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 distanceVector = mousePosition - (Vector2)gunPivot.position;
 
-        RaycastHit2D _hit = Physics2D.Raycast(startPoint, distanceVector.normalized);
-        if (_hit.collider != null)
+        // Define a radius to search for nearby colliders
+        float searchRadius = 2f;
+
+        // Get all colliders within the radius of the mouse position
+        Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(mousePosition, searchRadius);
+
+        float closestDistance = float.MaxValue;
+        Vector2? closestPoint = null;
+
+        foreach (Collider2D collider in nearbyColliders)
         {
-            if (_hit.transform.gameObject.layer == grappableLayerNumber || grappleToAll)
+            // Skip triggers and invalid layers
+            if (collider.isTrigger || (!grappleToAll && collider.gameObject.layer != grappableLayerNumber))
+                continue;
+
+            // Find the closest point on this collider to the mouse position
+            Vector2 pointOnCollider = collider.ClosestPoint(mousePosition);
+            float distanceToPoint = Vector2.Distance(mousePosition, pointOnCollider);
+
+            // Update closest point if this is the nearest valid one
+            if (distanceToPoint < closestDistance)
             {
-                if (Vector2.Distance(_hit.point, firePoint.position) <= maxDistnace || !hasMaxDistance)
+                // Check if the point is within max distance from the fire point (if enabled)
+                if (!hasMaxDistance || Vector2.Distance(pointOnCollider, firePoint.position) <= maxDistnace)
                 {
-                    grapplePoint = _hit.point;
-                    grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
-                    grappleRope.enabled = true;
+                    closestDistance = distanceToPoint;
+                    closestPoint = pointOnCollider;
                 }
             }
+        }
+
+        // If we found a valid point, set it as the grapple point
+        if (closestPoint.HasValue)
+        {
+            grapplePoint = closestPoint.Value;
+            grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
+            grappleRope.enabled = true;
         }
     }
 
