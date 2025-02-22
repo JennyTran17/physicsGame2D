@@ -15,6 +15,11 @@ public class PlayerController : MonoBehaviour
     private float stickForce = 8f; // Reduced for smoother balancing
     private float rotationLerpSpeed = 10f; // Controls smooth rotation adjustments
 
+
+    [SerializeField] public GameObject bullet;
+    public Transform shootPos;
+    public GameObject gunPivot;
+
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -24,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
+        horizontalInput = Input.GetAxis("Horizontal");
 
         if (horizontalInput != 0)
         {
@@ -40,6 +45,8 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = currentNormal * jumpPower;
         }
+
+       
     }
 
     private void FixedUpdate()
@@ -88,4 +95,6 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, targetAngle), Time.deltaTime * rotationLerpSpeed);
         }
     }
+
+    
 }

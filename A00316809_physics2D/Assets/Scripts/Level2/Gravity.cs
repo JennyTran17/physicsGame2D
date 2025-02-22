@@ -14,22 +14,23 @@ public class Gravity : MonoBehaviour
             {
                 return; // No gravity applied if too close (presumably on the inner collider)
             }
-        }
-        // Continue with normal gravity application for other objects
-        float gravitionalPower = gravityScale;
-        float dist = Vector2.Distance(obj.transform.position, transform.position);
+            // Continue with normal gravity application for other objects
+            float gravitionalPower = gravityScale;
+            float dist = Vector2.Distance(obj.transform.position, transform.position);
 
-        if (dist > (groundRadius + gravityMinRange))
-        {
-            float min = groundRadius + gravityMinRange;
-            gravitionalPower = (((min + gravityMinRange) - dist) / gravityMaxRange) * gravitionalPower;
-        }
+            if (dist > (groundRadius + gravityMinRange))
+            {
+                float min = groundRadius + gravityMinRange;
+                gravitionalPower = (((min + gravityMinRange) - dist) / gravityMaxRange) * gravitionalPower;
+            }
 
-        Vector3 dir = (transform.position - obj.transform.position) * gravityScale;
-        obj.GetComponent<Rigidbody2D>().AddForce(dir);
-        if (obj.CompareTag("Player"))
-        {
+            Vector3 dir = (transform.position - obj.transform.position) * gravityScale;
+            obj.GetComponent<Rigidbody2D>().AddForce(dir);
+            
             obj.transform.up = Vector3.MoveTowards(obj.transform.up, -dir, gravityScale * Time.deltaTime);
+            
         }
+
+       
     }
 }
