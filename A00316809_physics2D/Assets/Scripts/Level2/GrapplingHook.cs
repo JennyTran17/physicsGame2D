@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class GrapplingHook : MonoBehaviour
 {
-    [SerializeField] private float grappleLength;
+    [SerializeField] private float grappleLength = 4f;
     [SerializeField] private LayerMask grappleLayer;
     [SerializeField] private LineRenderer rope;
+    PlayerMovement3 player;
 
     private Vector3 grapplePoint;
-    private DistanceJoint2D joint;
+    private SpringJoint2D joint;
 
     private void Start()
     {
-        joint = gameObject.GetComponent<DistanceJoint2D>();
+        joint = gameObject.GetComponent<SpringJoint2D>();
         joint.enabled = false;
         rope.enabled = false;
+        player = FindFirstObjectByType<PlayerMovement3>();
     }
 
     private void Update()
@@ -40,6 +42,8 @@ public class GrapplingHook : MonoBehaviour
                 rope.SetPosition(0, grapplePoint);
                 rope.SetPosition(1, transform.position);
                 rope.enabled = true;
+               
+                player.SetGrappling(true);
             }
             
         }
@@ -48,6 +52,7 @@ public class GrapplingHook : MonoBehaviour
         {
             joint.enabled=false;
             rope.enabled=false;
+            player.SetGrappling(false);
         }
 
         if(rope.enabled == true)
