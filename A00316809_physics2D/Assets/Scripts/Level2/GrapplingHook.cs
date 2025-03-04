@@ -8,6 +8,7 @@ public class GrapplingHook : MonoBehaviour
     [SerializeField] private LayerMask grappleLayer;
     [SerializeField] private LineRenderer rope;
     PlayerMovement3 player;
+    private Vector2 swingMomentum;
 
     private Vector3 grapplePoint;
     private SpringJoint2D joint;
@@ -50,9 +51,18 @@ public class GrapplingHook : MonoBehaviour
 
         if(Input.GetMouseButtonUp(0)) 
         {
+            Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+
+
+            swingMomentum = rb.velocity;
+
+
             joint.enabled=false;
             rope.enabled=false;
             player.SetGrappling(false);
+
+            rb.velocity = new Vector2(swingMomentum.x, swingMomentum.y);
+
         }
 
         if(rope.enabled == true)

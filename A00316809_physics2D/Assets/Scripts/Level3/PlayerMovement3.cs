@@ -14,7 +14,7 @@ public class PlayerMovement3 : MonoBehaviour
     [SerializeField] private float maxSpeed = 15f;
     [SerializeField] private float acceleration = 30f;
     [SerializeField] private float deceleration = 40f;
-    [SerializeField] private float swingForce = 10f;
+    [SerializeField] private float swingForce = 5f;
 
     private Animator animator;
    
@@ -22,6 +22,10 @@ public class PlayerMovement3 : MonoBehaviour
     private bool top;
     private bool facingRight = true;
     private bool isGrappling = false;
+    private float grappleMomentumX = 0f;
+    private bool isReleasingGrapple = false;
+
+
 
 
     private void Start()
@@ -62,7 +66,7 @@ public class PlayerMovement3 : MonoBehaviour
 
     private void FixedUpdate()
     {
-       // rb.velocity = new Vector2 (horizontalInput * moveSpeed, rb.velocity.y);
+       
 
         ApplyMovement();
     }
@@ -71,11 +75,20 @@ public class PlayerMovement3 : MonoBehaviour
     {
         if (isGrappling)
         {
+            grappleMomentumX = rb.velocity.x;
+
             // Add force instead of setting velocity to allow momentum and swinging
             rb.AddForce(new Vector2(horizontalInput * swingForce, 0), ForceMode2D.Force);
         }
+        else if (isReleasingGrapple)
+        {
+            // When releasing the grapple, keep the momentum going
+            rb.velocity = new Vector2(grappleMomentumX, rb.velocity.y);
+
+        }
         else
         {
+           
             // Acceleration
             if (horizontalInput != 0)
             {
@@ -131,13 +144,18 @@ public class PlayerMovement3 : MonoBehaviour
     public void SetGrappling(bool state)
     {
         isGrappling = state;
+        isReleasingGrapple = true;
     }
+
+   
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
             rb.AddForce(Vector2.down, ForceMode2D.Impulse);
+            isReleasingGrapple = false; // Reset the grapple release state
+           
         }
     }
 
