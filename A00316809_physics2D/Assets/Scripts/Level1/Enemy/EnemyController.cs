@@ -6,7 +6,7 @@ public class EnemyController : MonoBehaviour
 {
     public Transform player;
     public float chaseSpeed = 3f;
-    public float jumpForce = 6f;  // Increased jump force for better jumping
+    public float jumpForce = 7f;  // Increased jump force for better jumping
     public LayerMask groundLayer;
 
     private Rigidbody2D rb;
@@ -47,10 +47,20 @@ public class EnemyController : MonoBehaviour
         {
             shouldJump = true;
         }
+
+        else if(!groundCheck.isGrounded && !!groundInFront.collider)
+        {
+            shouldJump = true;
+        }
+
         // Jump if the player is above and there's a platform
         else if (isPlayerAbove && platformAbove.collider)
         {
             shouldJump = true;
+        }
+        else
+        {
+            shouldJump = false;
         }
 
         Debug.Log("Direction: " + direction);
@@ -70,7 +80,10 @@ public class EnemyController : MonoBehaviour
         if (groundCheck.isGrounded && shouldJump)
         {
             shouldJump = false;
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce); // Jump upward
+            rb.velocity = new Vector2(rb.velocity.x * 2, jumpForce * 1.5f); // Jump upward
         }
     }
+
+    //get distance between two grounds one from the npc and the other one is from the player. rb.velocity + the distance
+
 }
