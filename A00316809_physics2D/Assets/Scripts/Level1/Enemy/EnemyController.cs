@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public Transform player;
-    public float chaseSpeed = 3f;
-    public float jumpForce = 7f;  // Increased jump force for better jumping
+    public float chaseSpeed = 5f;
+    public float jumpForce = 8f;  // Increased jump force for better jumping
     public LayerMask groundLayer;
 
     private Rigidbody2D rb;
@@ -37,7 +37,7 @@ public class EnemyController : MonoBehaviour
         RaycastHit2D gapAhead = Physics2D.Raycast(forwardCheckPos + new Vector3(0.5f * direction, 0, 0), Vector2.down, 2f, groundLayer);
 
         // Check if the player is above
-        bool isPlayerAbove = Physics2D.Raycast(transform.position, Vector2.up, 7f, LayerMask.GetMask("Player"));
+        bool isPlayerAbove = Physics2D.Raycast(transform.position, Vector2.up, 11f, LayerMask.GetMask("Player"));
 
         // Check if there is a platform above
         RaycastHit2D platformAbove = Physics2D.Raycast(transform.position, Vector2.up, 4f, groundLayer);
@@ -80,7 +80,7 @@ public class EnemyController : MonoBehaviour
         if (groundCheck.isGrounded && shouldJump)
         {
             shouldJump = false;
-            rb.velocity = new Vector2(rb.velocity.x * 2, jumpForce * 1.5f); // Jump upward
+            rb.velocity = new Vector2(rb.velocity.x * 1.8f, jumpForce * 1.7f); // Jump upward
         }
     }
 
