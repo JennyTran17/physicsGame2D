@@ -80,7 +80,7 @@ public class EnemyController : MonoBehaviour
         if (groundCheck.isGrounded && shouldJump)
         {
             shouldJump = false;
-            rb.velocity = new Vector2(rb.velocity.x * 1.8f, jumpForce * 1.7f); // Jump upward
+            rb.velocity = new Vector2(rb.velocity.x * 1.5f, jumpForce * 1.7f); // Jump upward
         }
     }
 
