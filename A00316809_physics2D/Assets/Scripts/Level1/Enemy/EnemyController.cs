@@ -15,16 +15,34 @@ public class EnemyController : MonoBehaviour
     private float direction;
 
     GroundCheck groundCheck;
+    Animator anim;
+    bool isRight = true;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         groundCheck = GetComponent<GroundCheck>();
+        anim = gameObject.GetComponent<Animator>();
     }
 
     private void Update()
     {
-        
+        if(rb.velocity != Vector2.zero)
+        {
+            anim.SetBool("walk", true);
+            if(direction >= 0 && isRight == false)
+            {
+                Flip();
+            }
+            else if(direction < 0 && isRight == true)
+            {
+                Flip();
+            }
+        }
+        else
+        {
+            anim.SetBool("walk", false);
+        }
 
         // Calculate movement direction (-1 left, 1 right)
         direction = player.position.x > transform.position.x ? 1f : -1f;
@@ -82,6 +100,14 @@ public class EnemyController : MonoBehaviour
             shouldJump = false;
             rb.velocity = new Vector2(rb.velocity.x * 1.5f, jumpForce * 1.7f); // Jump upward
         }
+    }
+
+    void Flip()
+    {
+        isRight = !isRight;
+        Vector3 scaler = transform.localScale;
+        scaler.x *= -1;
+        transform.localScale = scaler;
     }
 
     //get distance between two grounds one from the npc and the other one is from the player. rb.velocity + the distance

@@ -80,7 +80,7 @@ SpriteShapeRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 15
   m_Color: {r: 0, g: 0.6551931, b: 1, a: 1}
   m_MaskInteraction: 0
   m_ShapeTexture: {fileID: 2800000, guid: a01893f46a169a247bcda8139dc1a7e9, type: 3}
@@ -267,7 +267,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 5213442280752133247}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b800254c5c25f2c4d919aeb11fffb10f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

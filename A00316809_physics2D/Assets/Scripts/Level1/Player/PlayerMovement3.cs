@@ -9,6 +9,7 @@ public class PlayerMovement3 : MonoBehaviour
 
     //[SerializeField] private float moveSpeed = 15f;
     [SerializeField] private float jumpPower = 15f;
+    public bool canJump = true;
 
     private float currentSpeed = 0f;
     [SerializeField] private float maxSpeed = 15f;
@@ -64,7 +65,7 @@ public class PlayerMovement3 : MonoBehaviour
             animator.SetBool("walk", false);
         }
 
-        if(Input.GetButtonDown("Jump"))
+        if(Input.GetButtonDown("Jump") && canJump)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
         }
