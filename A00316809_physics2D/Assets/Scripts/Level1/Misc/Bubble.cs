@@ -31,12 +31,14 @@ public class Bubble : MonoBehaviour
     {
         if(isPlayerInside && obj != null)
         {
-            // Keep player inside bubble
-            obj.transform.position = new Vector3(
-                Mathf.Clamp(obj.transform.position.x, transform.position.x - 0.5f, transform.position.x + 0.5f),
-                Mathf.Clamp(obj.transform.position.y, transform.position.y - 0.5f, transform.position.y + 0.5f),
-                obj.transform.position.z
-            );
+            //// Keep player inside bubble
+            //obj.transform.position = new Vector3(
+            //    Mathf.Clamp(obj.transform.position.x, transform.position.x - 0.5f, transform.position.x + 0.5f),
+            //    Mathf.Clamp(obj.transform.position.y, transform.position.y - 0.5f, transform.position.y + 0.5f),
+            //    obj.transform.position.z
+            //);
+
+            transform.position = obj.GetComponent<Rigidbody2D>().transform.position;
         }
     }
 
@@ -61,18 +63,20 @@ public class Bubble : MonoBehaviour
         obj.GetComponent<Rigidbody2D>().mass = 1f;
         obj.GetComponent<CapsuleCollider2D>().enabled = true;
         obj.GetComponent<PlayerMovement3>().canJump = true;
-        Destroy(this);
+        obj.GetComponent<PlayerMovement3>().gravityFlip = true;
+        Destroy(gameObject);
     }
 
     private void liftBubble()
     {
         isPlayerInside = true;
-        rb.gravityScale = -gravityScaleValue;
-        obj.GetComponent<Rigidbody2D>().velocity = new Vector2(rb.velocity.x, 0);
-        obj.GetComponent<Rigidbody2D>().transform.position = transform.position;
-        obj.GetComponent<Rigidbody2D>().gravityScale = rb.gravityScale;
+        obj.GetComponent<Rigidbody2D>().gravityScale = - 0.1f;
+        
+        transform.position = obj.GetComponent<Rigidbody2D>().transform.position;
+        rb.gravityScale = obj.GetComponent<Rigidbody2D>().gravityScale;
         obj.GetComponent<Rigidbody2D>().mass = 0;
         obj.GetComponent<CapsuleCollider2D>().enabled = false;
         obj.GetComponent<PlayerMovement3>().canJump = false;
+        obj.GetComponent<PlayerMovement3>().gravityFlip = false;    
     }
 }

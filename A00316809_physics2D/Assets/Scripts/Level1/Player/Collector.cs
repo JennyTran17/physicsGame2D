@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class Collector : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D obj)
+    private void OnCollisionEnter2D(Collision2D obj)
     {
-        IItem item = obj.GetComponent<IItem>();
+        IItem item = obj.gameObject.GetComponent<IItem>();
         if(item != null )
         {
             item.Collect();

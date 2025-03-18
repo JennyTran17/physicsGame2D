@@ -81,9 +81,9 @@ public class EnemyController : MonoBehaviour
             shouldJump = false;
         }
 
-        Debug.Log("Direction: " + direction);
-        Debug.Log("Velocity: " + rb.velocity);
-        Debug.Log("IsGrounded: " + groundCheck.isGrounded);
+        //Debug.Log("Direction: " + direction);
+        //Debug.Log("Velocity: " + rb.velocity);
+        //Debug.Log("IsGrounded: " + groundCheck.isGrounded);
     }
 
     private void FixedUpdate()

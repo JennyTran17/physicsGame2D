@@ -10,6 +10,7 @@ public class PlayerMovement3 : MonoBehaviour
     //[SerializeField] private float moveSpeed = 15f;
     [SerializeField] private float jumpPower = 15f;
     public bool canJump = true;
+    public bool gravityFlip = true;
 
     private float currentSpeed = 0f;
     [SerializeField] private float maxSpeed = 15f;
@@ -70,7 +71,10 @@ public class PlayerMovement3 : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
         }
 
-        ChangeGravity();
+        if (gravityFlip)
+        {
+            ChangeGravity();
+        }
         Attack();
 
         //attack point rotation
