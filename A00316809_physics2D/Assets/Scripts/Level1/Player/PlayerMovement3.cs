@@ -123,6 +123,10 @@ public class PlayerMovement3 : MonoBehaviour
 
             // Apply the movement speed
             rb.velocity = new Vector2(horizontalInput * currentSpeed, rb.velocity.y);
+            //float targetVelocityX = horizontalInput * currentSpeed;
+            //float velocityChange = targetVelocityX - rb.velocity.x;
+
+            //rb.AddForce(new Vector2(velocityChange * 5, 0), ForceMode2D.Force);
         }
     }
 
