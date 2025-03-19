@@ -13,10 +13,10 @@ public class PlayerMovement3 : MonoBehaviour
     public bool gravityFlip = true;
 
     private float currentSpeed = 0f;
-    [SerializeField] private float maxSpeed = 15f;
+    [SerializeField] private float maxSpeed = 22f;
     [SerializeField] private float acceleration = 30f;
-    [SerializeField] private float deceleration = 40f;
-    [SerializeField] private float swingForce = 5f;
+    [SerializeField] private float deceleration = 20f;
+    [SerializeField] private float swingForce = 10f;
 
     private Animator animator;
    
@@ -140,7 +140,7 @@ public class PlayerMovement3 : MonoBehaviour
 
     void ChangeGravity()
     {
-        if(Input.GetKeyDown(KeyCode.G))
+        if(Input.GetKeyDown(KeyCode.W))
         {
             rb.gravityScale *= -1;
             Rotation();
@@ -184,7 +184,7 @@ public class PlayerMovement3 : MonoBehaviour
 
     void Attack()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             if (Time.time > nextShotTime)
             {
