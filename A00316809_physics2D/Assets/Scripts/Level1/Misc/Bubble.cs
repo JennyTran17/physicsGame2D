@@ -70,7 +70,7 @@ public class Bubble : MonoBehaviour
     private void liftBubble()
     {
         isPlayerInside = true;
-        obj.GetComponent<Rigidbody2D>().gravityScale = - 0.1f;
+        obj.GetComponent<Rigidbody2D>().gravityScale = - 0.3f;
         
         transform.position = obj.GetComponent<Rigidbody2D>().transform.position;
         rb.gravityScale = obj.GetComponent<Rigidbody2D>().gravityScale;

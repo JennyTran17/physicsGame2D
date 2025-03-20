@@ -52,7 +52,8 @@ public class PlayerMovement3 : MonoBehaviour
         if (horizontalInput != 0)
         {
             animator.SetBool("walk", true);
-            if(facingRight == false && horizontalInput > 0)
+            isReleasingGrapple = false; // Reset the grapple release state
+            if (facingRight == false && horizontalInput > 0)
             {
                 Flip();
             }
@@ -140,7 +141,7 @@ public class PlayerMovement3 : MonoBehaviour
 
     void ChangeGravity()
     {
-        if(Input.GetKeyDown(KeyCode.W))
+        if(Input.GetKeyDown(KeyCode.E))
         {
             rb.gravityScale *= -1;
             Rotation();
@@ -177,7 +178,7 @@ public class PlayerMovement3 : MonoBehaviour
         if(collision.gameObject.CompareTag("Ground"))
         {
             rb.AddForce(Vector2.down, ForceMode2D.Impulse);
-            isReleasingGrapple = false; // Reset the grapple release state
+            
            
         }
     }

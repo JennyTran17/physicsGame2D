@@ -39,9 +39,7 @@ public class BlackHole : MonoBehaviour
         {
             Debug.Log(Vector2.Distance(player.position, transform.position));
         }
-    }
-    void FixedUpdate()
-    {
+
         if (isPulling && player != null)
         {
             Vector2 blackHolePos = transform.position;
@@ -65,6 +63,10 @@ public class BlackHole : MonoBehaviour
                 StartCoroutine(TeleportPlayer());
             }
         }
+    }
+    void FixedUpdate()
+    {
+        
     }
 
     IEnumerator TeleportPlayer()
