@@ -8,14 +8,13 @@ public class HeatSeekingMissiles : MonoBehaviour
     GameObject target;
     Vector3 targetPosition;
     float speed;
-    float trackTime = 4f;
-    bool hasDamage = false;
+    float trackTime = 7f;
     float rotationSpeed = 720f;
 
     public void CreateMissile(GameObject player)
     {
         target = player;
-        speed = 4f;
+        speed = 10f;
         StartCoroutine(StopFollowing());
     }
     void Update()
@@ -41,25 +40,7 @@ public class HeatSeekingMissiles : MonoBehaviour
             Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, vectorNormalise );
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
 
-            if (!hasDamage)
-            {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, vectorNormalise, 0.1f);
-                if (hit)
-                {
-                    PlayerHealth player = hit.collider.GetComponent<PlayerHealth>();
-                    if (player != null)
-                    {
-                        player.health -= 5;
-                        Debug.Log("health: " + player.health);
-                        hasDamage = true;
-                    }
-                }
-            }
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
-            {
-                transform.position = Vector2.zero;
-                Destroy(gameObject);
-            }
+            
         }
     }
 
@@ -69,9 +50,23 @@ public class HeatSeekingMissiles : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void Rotate()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-       
+        if (!collision.gameObject.CompareTag("Enemy"))
+        {
+
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                PlayerHealth _playerhealth = collision.gameObject.GetComponent<PlayerHealth>();
+                _playerhealth.health -= 10;
+                _playerhealth.healthBar.value = _playerhealth.health;
+                Debug.Log(_playerhealth.health);
+                
+            }
+            Destroy(gameObject);
+        }
+
     }
+
 
 }

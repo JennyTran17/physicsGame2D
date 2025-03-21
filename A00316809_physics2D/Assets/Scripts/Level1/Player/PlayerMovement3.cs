@@ -67,7 +67,7 @@ public class PlayerMovement3 : MonoBehaviour
             animator.SetBool("walk", false);
         }
 
-        if(Input.GetButtonDown("Jump") && canJump)
+        if(Input.GetKeyDown(KeyCode.W) && canJump)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
         }
@@ -185,7 +185,7 @@ public class PlayerMovement3 : MonoBehaviour
 
     void Attack()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             if (Time.time > nextShotTime)
             {
