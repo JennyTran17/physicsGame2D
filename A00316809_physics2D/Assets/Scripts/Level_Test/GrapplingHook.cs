@@ -23,51 +23,54 @@ public class GrapplingHook : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0)) 
+        if (player.canGrapple)
         {
-            RaycastHit2D hit = Physics2D.Raycast(
-                origin: Camera.main.ScreenToWorldPoint(Input.mousePosition),
-                direction: Vector2.zero,
-                distance: Mathf.Infinity,
-                layerMask: grappleLayer
-
-            );
-
-            if(hit.collider != null )
+            if (Input.GetMouseButtonDown(0))
             {
-                grapplePoint = hit.point;
-                grapplePoint.z = 0;
-                joint.connectedAnchor = grapplePoint;
-                joint.enabled = true;
-                joint.distance = grappleLength;
-                rope.SetPosition(0, grapplePoint);
-                rope.SetPosition(1, transform.position);
-                rope.enabled = true;
-               
-                player.SetGrappling(true);
+                RaycastHit2D hit = Physics2D.Raycast(
+                    origin: Camera.main.ScreenToWorldPoint(Input.mousePosition),
+                    direction: Vector2.zero,
+                    distance: Mathf.Infinity,
+                    layerMask: grappleLayer
+
+                );
+
+                if (hit.collider != null)
+                {
+                    grapplePoint = hit.point;
+                    grapplePoint.z = 0;
+                    joint.connectedAnchor = grapplePoint;
+                    joint.enabled = true;
+                    joint.distance = grappleLength;
+                    rope.SetPosition(0, grapplePoint);
+                    rope.SetPosition(1, transform.position);
+                    rope.enabled = true;
+
+                    player.SetGrappling(true);
+                }
+
             }
-            
-        }
 
-        if(Input.GetMouseButtonUp(0)) 
-        {
-            Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+            if (Input.GetMouseButtonUp(0))
+            {
+                Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
 
 
-            swingMomentum = rb.velocity;
+                swingMomentum = rb.velocity;
 
 
-            joint.enabled=false;
-            rope.enabled=false;
-            player.SetGrappling(false);
+                joint.enabled = false;
+                rope.enabled = false;
+                player.SetGrappling(false);
 
-            rb.velocity = new Vector2(swingMomentum.x, swingMomentum.y);
+                rb.velocity = new Vector2(swingMomentum.x, swingMomentum.y);
 
-        }
+            }
 
-        if(rope.enabled == true)
-        {
-            rope.SetPosition(1, transform.position);
+            if (rope.enabled == true)
+            {
+                rope.SetPosition(1, transform.position);
+            }
         }
     }
 }

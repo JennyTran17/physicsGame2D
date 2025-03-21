@@ -13,8 +13,12 @@ public class DestroyEnemy : MonoBehaviour
         if(obj.gameObject.CompareTag("Enemy"))
         {
             EnemyHealth eHealth = obj.gameObject.GetComponent<EnemyHealth>();
-            eHealth.enemyHealth -= hit;
-            Destroy(gameObject, 0.1f);
+            if(eHealth != null)
+            {
+                eHealth.enemyHealth -= hit;
+                Destroy(gameObject, 0.1f);
+            }
+           
         }
     }
 

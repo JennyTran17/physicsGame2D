@@ -8,15 +8,17 @@ public class PlayerMovement3 : MonoBehaviour
     private float horizontalInput;
 
     //[SerializeField] private float moveSpeed = 15f;
-    [SerializeField] private float jumpPower = 15f;
+    public float jumpPower = 17f;
     public bool canJump = true;
     public bool gravityFlip = true;
+    public bool canGrapple = false;
+    public bool canShoot = false;
 
     private float currentSpeed = 0f;
-    [SerializeField] private float maxSpeed = 22f;
-    [SerializeField] private float acceleration = 30f;
-    [SerializeField] private float deceleration = 20f;
-    [SerializeField] private float swingForce = 10f;
+    public float maxSpeed = 17f;
+    public float acceleration = 17f;
+    public float deceleration = 10f;
+    public float swingForce = 10f;
 
     private Animator animator;
    
@@ -67,7 +69,7 @@ public class PlayerMovement3 : MonoBehaviour
             animator.SetBool("walk", false);
         }
 
-        if(Input.GetKeyDown(KeyCode.W) && canJump)
+        if((Input.GetKeyDown(KeyCode.W) && canJump) || (Input.GetKeyDown(KeyCode.S) && canJump))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
         }
@@ -185,7 +187,7 @@ public class PlayerMovement3 : MonoBehaviour
 
     void Attack()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && canShoot)
         {
             if (Time.time > nextShotTime)
             {
