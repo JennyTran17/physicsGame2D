@@ -10,13 +10,20 @@ public class PlayerHealth : MonoBehaviour
     public Slider healthBar;
     public float health = 100f;
     public string sceneName;
+
+    Animator animator;
+    private void Start()
+    {
+        animator = gameObject.GetComponent<Animator>();
+    }
     private void Update()
     {
         //healthBar.value = health;
         if(health <= 0)
         {
-            health = 100f;
+            health = 0f;
             Debug.Log("player dead");
+            animator.SetTrigger("death");
             StartCoroutine(Replay());
         }
         
@@ -26,7 +33,7 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator Replay()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(sceneName);
     }
 }

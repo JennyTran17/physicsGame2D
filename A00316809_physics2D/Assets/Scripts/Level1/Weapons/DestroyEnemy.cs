@@ -22,5 +22,20 @@ public class DestroyEnemy : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            EnemyHealth eHealth = collision.gameObject.GetComponent<EnemyHealth>();
+            if (eHealth != null)
+            {
+                eHealth.enemyHealth -= hit;
+                Destroy(gameObject, 0.1f);
+               // Debug.Log("enemy2");
+            }
+           // Debug.Log("Enemy found");
+        }
+    }
+
 
 }

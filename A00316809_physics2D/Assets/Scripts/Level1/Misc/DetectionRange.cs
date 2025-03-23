@@ -16,12 +16,19 @@ public class DetectionRange : MonoBehaviour
         if (collision.gameObject.CompareTag("Destructable"))
         {
             warning.text = "Detected black hole nearby";
+            StartCoroutine(waitTime());
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
        
-        warning.text = " ";
+    //    warning.text = " ";
         
+    //}
+
+    IEnumerator waitTime()
+    {
+        yield return new WaitForSeconds(2.3f);
+        warning.text = "";
     }
 }

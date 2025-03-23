@@ -6,17 +6,20 @@ public class TeleportPlayer : MonoBehaviour
 {
     public GameObject destination;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     void OnTriggerEnter2D(Collider2D collision)
     {
         // Move the player to the Destination
         collision.gameObject.transform.position = destination.transform.position;
-      
-        
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            PlayerMovement3 player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement3>();
+            if (player != null)
+            {
+                collision.gameObject.transform.position = new Vector2(player.transform.position.x + 10f, player.transform.position.y + 10f);
+
+
+            }
+        }
     }
 }

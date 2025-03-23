@@ -25,7 +25,7 @@ public class GrapplingHook : MonoBehaviour
     {
         if (player.canGrapple)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
                 RaycastHit2D hit = Physics2D.Raycast(
                     origin: Camera.main.ScreenToWorldPoint(Input.mousePosition),
@@ -51,7 +51,7 @@ public class GrapplingHook : MonoBehaviour
 
             }
 
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(1))
             {
                 Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
 

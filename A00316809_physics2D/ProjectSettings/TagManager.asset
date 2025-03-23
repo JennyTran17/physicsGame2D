@@ -8,6 +8,9 @@ TagManager:
   - Bullet
   - Enemy
   - Destructable
+  - effect
+  - Special
+  - Health
   layers:
   - Default
   - TransparentFX

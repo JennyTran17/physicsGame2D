@@ -12,5 +12,15 @@ public class Collector : MonoBehaviour
         {
             item.Collect();
         }
+
+        if (obj.gameObject.CompareTag("Health"))
+        {
+            PlayerHealth playerHealth = obj.gameObject.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.health += 5;
+                playerHealth.healthBar.value = playerHealth.health;
+            }
+        }
     }
 }
