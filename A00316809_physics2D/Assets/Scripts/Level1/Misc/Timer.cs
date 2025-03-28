@@ -8,13 +8,17 @@ public class Timer : MonoBehaviour
     [SerializeField] TextMeshProUGUI timerText;
 
     float elapsedTime;
+    int minutes = 0;
+    int seconds = 0;
+    public PlayerScriptable playerData;
 
     private void Update()
     {
         elapsedTime += Time.deltaTime;
-        int minutes = Mathf.FloorToInt(elapsedTime / 60);
-        int seconds = Mathf.FloorToInt(elapsedTime % 60);
+        minutes = Mathf.FloorToInt(elapsedTime / 60);
+        seconds = Mathf.FloorToInt(elapsedTime % 60);
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        if(elapsedTime>=0) playerData.time = elapsedTime;
     }
 
     //[SerializeField] TextMeshProUGUI timerText;

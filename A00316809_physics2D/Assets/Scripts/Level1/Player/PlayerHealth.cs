@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public Slider healthBar;
     public float health = 100f;
     public string sceneName;
+    public PlayerScriptable playerData;
 
     Animator animator;
     private void Start()
@@ -26,7 +27,13 @@ public class PlayerHealth : MonoBehaviour
             animator.SetTrigger("death");
             StartCoroutine(Replay());
         }
-        
+        if (health > 100)
+        {
+            health = 100;
+        }
+
+        healthBar.value = health;
+        playerData.health = health;
     }
 
   

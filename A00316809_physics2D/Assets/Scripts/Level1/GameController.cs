@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject celebrateParticle;
     [SerializeField] TextMeshProUGUI message;
     [SerializeField] GameObject menuPanel;
+    [SerializeField] PlayerScriptable playerData;
 
     private bool isGrappleEnabled = false;
     private bool isDashEnabled = false;
@@ -28,11 +29,16 @@ public class GameController : MonoBehaviour
         {
             a.SetActive(false);
         }
+
     }
 
     void Start()
     {
         progressAmount = 0;
+        playerData.health = 100;
+        playerData.kill = 0;
+        playerData.gems = progressAmount;
+        playerData.score = 0;
         Collectables.OnGemCollect += IncreaseProgressAmount;
         progressSlider.value = 0;
         player = GameObject.FindFirstObjectByType<PlayerMovement3>();
@@ -44,6 +50,8 @@ public class GameController : MonoBehaviour
     {
         progressAmount += amount;
         progressSlider.value = progressAmount;
+
+        playerData.gems = progressAmount;
 
         if (progressAmount > 120)
         {
@@ -86,10 +94,10 @@ public class GameController : MonoBehaviour
         
     }
 
-    void calculateScore()
-    {
-        //Score=(Gems Collected×GValue)+(Enemies Killed×EValueKilled)+(Health Remaining×HValue)
-    }
+    //void calculateScore()
+    //{
+    //    //Score=(Gems Collected×GValue)+(Enemies Killed×EValueKilled)+(Health Remaining×HValue)
+    //}
 
     IEnumerator waitTime(float time)
     {
@@ -157,9 +165,9 @@ public class GameController : MonoBehaviour
     void CallIntervalShake()
     {
         counter += Time.deltaTime;
-        if (counter > 40)
+        if (counter > 100)
         {
-            CinemachineShake.instance.ShakeCamera(3f, 2f);
+            CinemachineShake.instance.ShakeCamera(3f, 1.5f);
             counter = 0;
         }
         

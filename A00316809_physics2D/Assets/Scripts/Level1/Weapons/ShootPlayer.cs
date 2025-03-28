@@ -15,7 +15,8 @@ public class ShootPlayer : MonoBehaviour
             PlayerHealth pHealth = obj.gameObject.GetComponent<PlayerHealth>();
             pHealth.health -= hit;
             pHealth.healthBar.value = pHealth.health;
-            Destroy(gameObject, 0.1f);
+            
         }
+        Destroy(gameObject, 0.1f);
     }
 }

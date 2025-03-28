@@ -10,17 +10,20 @@ public class Collector : MonoBehaviour
         IItem item = obj.gameObject.GetComponent<IItem>();
         if(item != null )
         {
+            
+            if (obj.gameObject.CompareTag("Health"))
+            {
+                PlayerHealth playerHealth = gameObject.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    playerHealth.health += 10;
+                    playerHealth.healthBar.value = playerHealth.health;
+                    playerHealth.playerData.health = playerHealth.health;
+                }
+            }
             item.Collect();
         }
 
-        if (obj.gameObject.CompareTag("Health"))
-        {
-            PlayerHealth playerHealth = obj.gameObject.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
-            {
-                playerHealth.health += 5;
-                playerHealth.healthBar.value = playerHealth.health;
-            }
-        }
+        
     }
 }
