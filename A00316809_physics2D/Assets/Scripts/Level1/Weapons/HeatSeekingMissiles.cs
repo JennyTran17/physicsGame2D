@@ -19,7 +19,7 @@ public class HeatSeekingMissiles : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log(trackTime);
+        //Debug.Log(trackTime);
         if (target != null)
         {
             targetPosition = target.transform.position;

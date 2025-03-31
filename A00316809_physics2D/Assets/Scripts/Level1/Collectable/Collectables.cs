@@ -10,7 +10,10 @@ public class Collectables : MonoBehaviour, IItem
 
     public void Collect()
     {
-        OnGemCollect.Invoke(value);
+        if (OnGemCollect != null) // Check if event has listeners
+        {
+            OnGemCollect.Invoke(value);
+        }
         Destroy(gameObject);
     }
 
