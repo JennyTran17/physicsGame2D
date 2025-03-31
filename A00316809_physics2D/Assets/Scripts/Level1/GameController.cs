@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
         playerData.score = 0;
         Collectables.OnGemCollect += IncreaseProgressAmount;
         progressSlider.value = 0;
-        player = GameObject.FindFirstObjectByType<PlayerMovement3>();
+        player = FindFirstObjectByType<PlayerMovement3>();
         message.text = "";
         PauseGame();
     }
@@ -56,6 +56,7 @@ public class GameController : MonoBehaviour
         if (progressAmount > 120)
         {
             Debug.Log("Level complete");
+           
         }
 
         // Handle upgrades & celebrate only once per milestone
@@ -89,15 +90,13 @@ public class GameController : MonoBehaviour
 
     void InstantiateCelebrateParticle()
     {
+        player = FindFirstObjectByType<PlayerMovement3>();
         GameObject particle = Instantiate(celebrateParticle, player.transform.position, Quaternion.identity);
         Destroy(particle, 1.5f);
         
     }
 
-    //void calculateScore()
-    //{
-    //    //Score=(Gems Collected×GValue)+(Enemies Killed×EValueKilled)+(Health Remaining×HValue)
-    //}
+    
 
     IEnumerator waitTime(float time)
     {
@@ -105,18 +104,7 @@ public class GameController : MonoBehaviour
         message.text = "";
     }
 
-    //Activate Shake Cinemachine
-    //IEnumerator shakeInterval(float time)
-    //{
-    //    yield return new WaitForSeconds(time);
-    //    if (CinemachineShake.instance != null)
-    //    {
-    //        CinemachineShake.instance.ShakeCamera(3f, 1f);
-           
-    //    }
-    //    yield return new WaitForSeconds(time);
-       
-    //}
+ 
 
 
     private void Update()
@@ -147,10 +135,12 @@ public class GameController : MonoBehaviour
     //pause game
     public void PauseGame()
     {
-        Time.timeScale = 0;
-        isPaused = true;
+
         //open menu
         menuPanel.SetActive(true);
+
+        isPaused = true;
+        Time.timeScale = 0;
     }
 
     //resume game

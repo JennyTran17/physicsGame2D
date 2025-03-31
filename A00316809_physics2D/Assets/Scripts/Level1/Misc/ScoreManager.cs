@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using TMPro;
+using TMPro;
 public class ScoreManager : MonoBehaviour
 {
-    //[SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI scoreText1;
+    [SerializeField] TextMeshProUGUI scoreText2;
     [SerializeField] PlayerScriptable playerData;
+    float scoreBefore;
     float totalScore;
     float gemsCollected;
     float enemyKills;
     float gemPointValue = 10f;
     float killPointValue = 20f;
     float timeTaken;
-    float timePointValue = 1;
+    float timePointValue = 20;
     float healthRemaining;
     float health;
+    float timeScore;
 
     private void Start()
     {
@@ -30,6 +33,8 @@ public class ScoreManager : MonoBehaviour
 
        // scoreText.text = "Score: " + ((int)totalScore).ToString();
         calculateScore();
+        timeScore = Mathf.Max(0, 1 / (timeTaken * timePointValue)); // Make sure it doesn't go negative
+        calculateFinal();
     }
 
     public void calculateScore()
@@ -42,13 +47,19 @@ public class ScoreManager : MonoBehaviour
         float killScore = enemyKills * killPointValue;
 
         // Calculate time score: Reward for faster completion
-        float timeScore = Mathf.Max(0, 1 /  (timeTaken * timePointValue)); // Make sure it doesn't go negative
+       
 
         // Calculate health score: Reward for more health remaining
         float healthScore = (float)((healthRemaining / 100) * 100);
 
         // Combine all scores
-        totalScore = gemScore + killScore + timeScore + healthScore;
+        scoreBefore = gemScore + killScore + healthScore;
+        scoreText1.text = "Score: " + scoreBefore.ToString();
+    }
+    public void calculateFinal()
+    {
+        totalScore = scoreBefore + timeTaken;
         playerData.score = (int)Mathf.Round(totalScore);
+        scoreText2.text = "Total Score\n" + playerData.score.ToString();
     }
 }

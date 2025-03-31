@@ -10,5 +10,5 @@ public class PlayerScriptable : ScriptableObject
     public float gems = 0;
     public float time = 0;
     public int score = 0;
-    public int[] highScore;
+    public List<int> highScore;
 }
