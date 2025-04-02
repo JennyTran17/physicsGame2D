@@ -12,9 +12,13 @@ public class BlackHole : MonoBehaviour
     private bool isPulling = false;
     private float orbitRadius;
     private float angle = 0f;
-
+    AudioSource audioS;
     [SerializeField] GameObject destination;
 
+    private void Start()
+    {
+        audioS = gameObject.GetComponent<AudioSource>();
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -30,6 +34,15 @@ public class BlackHole : MonoBehaviour
 
             // Set initial orbit distance
             orbitRadius = Vector2.Distance(player.position, transform.position);
+            
+            audioS.Play();
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            audioS.Stop();
         }
     }
 
@@ -64,10 +77,7 @@ public class BlackHole : MonoBehaviour
             }
         }
     }
-    void FixedUpdate()
-    {
-        
-    }
+  
 
     IEnumerator TeleportPlayer()
     {

@@ -17,7 +17,7 @@ public class PlayerMovement3 : MonoBehaviour
     public bool isDashing;
     private float dashingPower = 100f;
     private float dashingTime = 0.2f;
-    private float dashingCoolDown = 1f;
+    private float dashingCoolDown = 0.7f;
 
     private float currentSpeed = 0f;
     public float maxSpeed = 23f;
@@ -44,12 +44,13 @@ public class PlayerMovement3 : MonoBehaviour
     public float timeBetweenShots;
     float nextShotTime;
 
-
+    public AudioClip[] clips;
+    AudioSource audioSource;
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
-       
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -80,6 +81,7 @@ public class PlayerMovement3 : MonoBehaviour
         if((Input.GetKeyDown(KeyCode.W) && canJump) || (Input.GetKeyDown(KeyCode.S) && canJump))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+            SetAudio(0);
         }
 
         if (gravityFlip)
@@ -118,6 +120,7 @@ public class PlayerMovement3 : MonoBehaviour
 
             // Add force instead of setting velocity to allow momentum and swinging
             rb.AddForce(new Vector2(horizontalInput * swingForce, 0), ForceMode2D.Force);
+            SetAudio(5);
         }
         else if (isReleasingGrapple)
         {
@@ -210,8 +213,9 @@ public class PlayerMovement3 : MonoBehaviour
             {
                 nextShotTime = Time.time + timeBetweenShots;
                 Instantiate(projectile, shotPoint.position, shotPoint.rotation);
+                SetAudio(2);
             }
-            // animator.SetTrigger("attack");
+           
 
         }
     }
@@ -224,11 +228,20 @@ public class PlayerMovement3 : MonoBehaviour
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0;
         rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+        SetAudio(1);
         yield return new WaitForSeconds(dashingTime);
         rb.gravityScale = originalGravity;
         isDashing = false;
         yield return new WaitForSeconds(dashingCoolDown);
         canDash = true;
+    }
+
+    //change audio
+    public void SetAudio(int i)
+    {
+        if (audioSource == null) { Debug.Log("no audio"); return; }
+        audioSource.clip = clips[i];
+        audioSource.Play();
     }
 
 }

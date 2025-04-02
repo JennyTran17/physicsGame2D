@@ -11,11 +11,13 @@ public class PlayerHealth : MonoBehaviour
     public float health = 100f;
     public string sceneName;
     public PlayerScriptable playerData;
-
+    PlayerMovement3 audioS;
     Animator animator;
+    bool isPlay;
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        audioS = gameObject.GetComponent<PlayerMovement3>();
     }
     private void Update()
     {
@@ -25,6 +27,11 @@ public class PlayerHealth : MonoBehaviour
             health = 0f;
             Debug.Log("player dead");
             animator.SetTrigger("death");
+            if(!isPlay)
+            {
+                isPlay = true;
+                audioS.SetAudio(4);
+            }
             StartCoroutine(Replay());
         }
         if (health > 100)
@@ -40,7 +47,8 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator Replay()
     {
-        yield return new WaitForSeconds(2f);
+        
+        yield return new WaitForSeconds(2.5f);
         SceneManager.LoadScene(sceneName);
     }
 }

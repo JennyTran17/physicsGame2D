@@ -210,6 +210,13 @@ namespace Bundos.WaterSystem
 
         void OnTriggerEnter2D(Collider2D other)
         {
+            if(other.CompareTag("Player"))
+            {
+                AudioSource audioS = gameObject.GetComponent<AudioSource>();
+                audioS.Play();
+            }
+            
+
             if (!interactive)
                 return;
 
@@ -219,11 +226,18 @@ namespace Bundos.WaterSystem
                 Vector2 contactPoint = other.ClosestPoint(transform.position);
 
                 Ripple(contactPoint, false);
+
             }
         }
 
         void OnTriggerExit2D(Collider2D other)
         {
+            if (other.CompareTag("Player"))
+            {
+                AudioSource audioS = gameObject.GetComponent<AudioSource>();
+                audioS.Play();
+            }
+
             if (!interactive)
                 return;
 

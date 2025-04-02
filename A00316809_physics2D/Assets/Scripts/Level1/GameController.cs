@@ -68,11 +68,13 @@ public class GameController : MonoBehaviour
         if (progressAmount >= 120 && !isWining)
         {
             InstantiateCelebrateParticle();
+            
+            //ChangeAudio(1);
 
-            ChangeAudio(1);
-
-            Debug.Log("Level complete");
-            StartCoroutine(ChangeScene());
+            //Debug.Log("Level complete");
+            //isWining = true;
+            message.text = "Exit opened!";
+            StartCoroutine(waitTime(4f));
 
         }
         playerHealth = FindFirstObjectByType<PlayerHealth>();
@@ -143,13 +145,7 @@ public class GameController : MonoBehaviour
         message.text = "";
     }
 
-    IEnumerator ChangeScene()
-    {
-        yield return new WaitForSeconds(2.5f);
-        InstantiateCelebrateParticle();
-        yield return new WaitForSeconds(2.5f);
-        SceneManager.LoadScene(sceneName);
-    }
+    
 
 
     private void Update()
@@ -209,7 +205,7 @@ public class GameController : MonoBehaviour
 
     }
 
-    void ChangeAudio(int i)
+    public void ChangeAudio(int i)
     {
         if (gameAudio == null) { Debug.Log("no audio"); return; }
         gameAudio.clip = gameClip[i];

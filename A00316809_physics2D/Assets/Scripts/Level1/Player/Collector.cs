@@ -7,6 +7,7 @@ public class Collector : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D obj)
     {
+        PlayerMovement3 audioS = gameObject.GetComponent<PlayerMovement3>();
         IItem item = obj.gameObject.GetComponent<IItem>();
         if(item != null )
         {
@@ -22,6 +23,7 @@ public class Collector : MonoBehaviour
                 }
             }
             item.Collect();
+            audioS.SetAudio(3);
         }
 
         
