@@ -152,6 +152,7 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene("MainMenu");
         }
         // if Q pressed, menu pop up appear

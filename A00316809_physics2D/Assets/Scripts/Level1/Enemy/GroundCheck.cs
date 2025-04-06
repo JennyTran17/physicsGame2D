@@ -25,16 +25,16 @@ public class GroundCheck : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Determine if we're colliding with anything 
+        // Determine if colliding with anything 
         int collisions = capsuleCollider2D.Cast(Vector2.down, cast, raycastHit2D, groundDistance);
         
-        // If we collide with the ground
+        // If collide with the ground
         if (collisions > 0)
         {
             isGrounded = true;
             //Debug.Log("on ground");
         }
-        // If we're not colliding with the ground (jumping)
+        // If not colliding with the ground (jumping)
         else 
         {
             isGrounded = false;

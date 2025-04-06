@@ -85,7 +85,7 @@ public class BlackHole : MonoBehaviour
         yield return new WaitForSeconds(0.1f); // Small delay for safety
         player.position = destination.transform.position;
 
-        // Reactivate physics if needed
+       
         Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
         if (rb)
         {
