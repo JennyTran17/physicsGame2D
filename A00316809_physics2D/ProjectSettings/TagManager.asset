@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Bullet
+  - Enemy
+  - Destructable
+  - effect
+  - Special
+  - Health
   layers:
   - Default
   - TransparentFX
@@ -41,4 +47,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: water
+    uniqueID: 465233603
     locked: 0
