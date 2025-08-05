@@ -2843,8 +2843,8 @@ MonoBehaviour:
   textDisplay: {fileID: 1543252619}
   sentences:
   - 'The galaxy you live in is falling apart and time is ticking... '
-  - Collect star dusts to unlock new areas and new abilities/features for faster
-    escape
+  - Collect enough star dusts to unlock new areas and new abilities/features for
+    faster escape
   - And be careful of the anomolies
   typingSpeed: 0.1
   sentencePause: 2
