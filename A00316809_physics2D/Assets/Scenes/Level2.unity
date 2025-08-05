@@ -31987,7 +31987,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1ab01d9f9e700554d81bda84f225cafc, type: 3}
   - {fileID: 8300000, guid: c180a6b65cfb0a740b5c3e238ccfe502, type: 3}
   - {fileID: 8300000, guid: cc83a336b81df1a468685aab2fc3171e, type: 3}
-  sceneName: MainMenu
+  sceneName: EndScene
   counter: 0
 --- !u!4 &1755921736
 Transform:
