@@ -706,11 +706,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: c2d36de4-6259-4fe9-b96f-469b4bb7d5f8
+  cloudProjectId: 65b33159-6cc5-4cb4-bbd6-7fe490353fd0
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: A00316809_physics2D 2025-02-18_13-16-54
-  organizationId: a00316809
+  projectName: A00316809_physics2D
+  organizationId: teacupjt17
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
